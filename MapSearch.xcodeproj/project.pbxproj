@@ -10,6 +10,7 @@
 		53B194201F719C8C00B49A5B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53B1941E1F719C8C00B49A5B /* Images.xcassets */; };
 		53B194261F719C9F00B49A5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53B194221F719C9F00B49A5B /* LaunchScreen.storyboard */; };
 		53B194271F719C9F00B49A5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53B194241F719C9F00B49A5B /* Main.storyboard */; };
+		5D7C8BB0215B9313009DAD8E /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C8BAF215B9313009DAD8E /* Place.swift */; };
 		D782D3D81FDCFD15003387E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D782D3D41FDCFD14003387E3 /* AppDelegate.swift */; };
 		D782D3D91FDCFD15003387E3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D782D3D51FDCFD14003387E3 /* MapViewController.swift */; };
 		D782D3DA1FDCFD15003387E3 /* MyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D782D3D61FDCFD15003387E3 /* MyTableViewController.swift */; };
@@ -24,6 +25,7 @@
 		53B194231F719C9F00B49A5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MapSearch/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		53B194251F719C9F00B49A5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MapSearch/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		53B194281F719CDA00B49A5B /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
+		5D7C8BAF215B9313009DAD8E /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		D782D3D01FDCFCA1003387E3 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		D782D3D11FDCFCA2003387E3 /* README2.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README2.md; sourceTree = "<group>"; };
 		D782D3D41FDCFD14003387E3 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = MapSearch/AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +60,9 @@
 				53B194281F719CDA00B49A5B /* ReadMe.md */,
 				D782D3D01FDCFCA1003387E3 /* LICENSE.txt */,
 				D782D3D11FDCFCA2003387E3 /* README2.md */,
+				5D7C8BAC215B9223009DAD8E /* Service */,
+				5D7C8BAB215B91C2009DAD8E /* Modules */,
+				5D7C8BAA215B91AE009DAD8E /* Model */,
 				53AF8AEC0D9C50B700726DBA /* Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -86,6 +91,28 @@
 				D782D3D71FDCFD15003387E3 /* PlaceAnnotation.swift */,
 			);
 			name = Sources;
+			sourceTree = "<group>";
+		};
+		5D7C8BAA215B91AE009DAD8E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5D7C8BAF215B9313009DAD8E /* Place.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		5D7C8BAB215B91C2009DAD8E /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Modules;
+			sourceTree = "<group>";
+		};
+		5D7C8BAC215B9223009DAD8E /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,6 +193,7 @@
 				D782D3DA1FDCFD15003387E3 /* MyTableViewController.swift in Sources */,
 				D782D3D91FDCFD15003387E3 /* MapViewController.swift in Sources */,
 				D782D3D81FDCFD15003387E3 /* AppDelegate.swift in Sources */,
+				5D7C8BB0215B9313009DAD8E /* Place.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +241,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = MapSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MapSearch;
@@ -234,6 +263,7 @@
 				DEVELOPMENT_TEAM = USS7ET87BM;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = MapSearch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MapSearch;

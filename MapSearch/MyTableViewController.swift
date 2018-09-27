@@ -23,7 +23,7 @@ import MapKit
 private let kCellIdentifier = "cellIdentifier"
 
 @objc(MyTableViewController)
-class MyTableViewController: UITableViewController, CLLocationManagerDelegate, UISearchBarDelegate {
+class MyTableViewController: UITableViewController, CLLocationManagerDelegate, UISearchBarDelegate, MKLocalSearchCompleterDelegate {
     
     var places: [MKMapItem] = []
     
@@ -36,8 +36,8 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     private var searchController: UISearchController!
     //###
     @IBOutlet weak var searchBar: UISearchBar!
-
-    
+    var searchCompleter = MKLocalSearchCompleter()
+    var searchResults = [MKLocalSearchCompletion]()
     //MARK: -
     
     override func viewDidLoad() {
@@ -55,6 +55,8 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
             
             self.searchController.dimsBackgroundDuringPresentation = false
             self.searchController.searchBar.delegate = self
+            
+            searchCompleter.delegate = self
         }
     }
     
@@ -101,7 +103,11 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     //MARK: - UITableViewDataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.places.count
+        if searchResults.count > 0 {
+            return searchResults.count
+        } else {
+            return self.places.count
+        }
     }
 
     
@@ -109,17 +115,28 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     //### As far as I know, `tableView(_:cellForRowAt:)` is declared in UITableViewDataSource...
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if searchResults.count > 0 {
+            let searchResult = searchResults[indexPath.row]
+            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+            cell.textLabel?.text = searchResult.title
+            cell.detailTextLabel?.text = searchResult.subtitle
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: kCellIdentifier, for: indexPath)
         
         let mapItem = self.places[indexPath.row]
         cell.textLabel!.text = mapItem.name
         
         return cell
+        
     }
     
     
     //MARK: - UISearchBarDelegate
     
+    /*
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if #available(iOS 11.0, *) {
             //### What to do (or what not to do) for UISearchConroller?
@@ -135,6 +152,20 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
                 self.viewAllButton.isEnabled = false
             }
         }
+    } */
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        searchCompleter.queryFragment = searchText
+    }
+    
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        searchResults = completer.results
+        self.tableView.reloadData()
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        // handle error
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -255,7 +286,7 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
                 this.boundingRegion = response!.boundingRegion
                 
                 this.viewAllButton.isEnabled = !this.places.isEmpty
-                
+                self?.searchResults = [MKLocalSearchCompletion]()
                 this.tableView.reloadData()
             }
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
