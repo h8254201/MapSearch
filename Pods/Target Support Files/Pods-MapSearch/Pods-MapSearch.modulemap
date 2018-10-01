@@ -1,0 +1,6 @@
+framework module Pods_MapSearch {
+  umbrella header "Pods-MapSearch-umbrella.h"
+
+  export *
+  module * { export * }
+}

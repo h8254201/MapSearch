@@ -1,0 +1,26 @@
+PODS:
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
+  - FBSDKCoreKit (4.36.0):
+    - Bolts (~> 1.7)
+  - FBSDKPlacesKit (4.36.0):
+    - FBSDKCoreKit
+  - SVProgressHUD (2.2.5)
+
+DEPENDENCIES:
+  - FBSDKPlacesKit
+  - SVProgressHUD
+
+SPEC CHECKSUMS:
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  FBSDKCoreKit: 3b8e6570eedb443f9fc4af196a7bf39f18e3a3d8
+  FBSDKPlacesKit: ceee4555dcff54fa3e61b9357364d88ac5956a8c
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+
+PODFILE CHECKSUM: 9a67c0917864c3bfc4c7cedce440c468aef842f6
+
+COCOAPODS: 1.4.0

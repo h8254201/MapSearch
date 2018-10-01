@@ -127,11 +127,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             if annotation.url != nil {
                 let rightButton = UIButton(type: .detailDisclosure)
                 annotationView!.rightCalloutAccessoryView = rightButton
+                let leftButton = UIButton(type: .detailDisclosure)
+                leftButton.addTarget(self, action: #selector(toFBResult), for: .touchUpInside)
+                annotationView!.leftCalloutAccessoryView = leftButton
             }
         }
         return annotationView
     }
     
+    @objc func toFBResult() {
+        let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FBTestVC") as! FBTestViewController
+        vc.mapItem = self.mapItemList[0]
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    /*
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         // Here we illustrate how to detect which annotation type was clicked on for its callout.
         if let annotation = view.annotation as? PlaceAnnotation {
@@ -147,4 +157,5 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    */
 }
