@@ -168,7 +168,7 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         searchCompleter.queryFragment = searchText
-        SVProgressHUD.show()
+        
     }
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
@@ -272,7 +272,7 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
         if self.localSearch?.isSearching ?? false {
             self.localSearch!.cancel()
         }
-        
+        SVProgressHUD.show()
         // Confine the map search area to the user's current location.
         // Setup the area spanned by the map region.
         // We use the delta values to indicate the desired zoom level of the map.
@@ -283,7 +283,7 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = searchString
         request.region = newRegion
-        SVProgressHUD.show()
+        
         let completionHandler: MKLocalSearchCompletionHandler = {[weak self] response, error in
             guard let this = self else {return}
             if let actualError = error as NSError? {
