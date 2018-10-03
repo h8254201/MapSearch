@@ -15,7 +15,7 @@
 
 import UIKit
 import CoreLocation
-
+import SVProgressHUD
 import MapKit
 
 //mark: -
@@ -38,6 +38,7 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     @IBOutlet weak var searchBar: UISearchBar!
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
+    var isAutoSuggest: Bool?
     //MARK: -
     
     override func viewDidLoad() {
@@ -128,11 +129,21 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
         
         let mapItem = self.places[indexPath.row]
         cell.textLabel!.text = mapItem.name
-        
+        let latitude = mapItem.placemark.coordinate.latitude
+        let longitude = mapItem.placemark.coordinate.longitude
+        if let phoneNumber = mapItem.phoneNumber {
+            cell.detailTextLabel?.text = "\(String(describing:phoneNumber))度\(String(latitude)):\(String(longitude))"
+        }
         return cell
         
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if isAutoSuggest == true {
+            let titleStr = searchResults[indexPath.row].title
+            self.searchController.searchBar.text = titleStr
+        }
+    }
     
     //MARK: - UISearchBarDelegate
     
@@ -157,11 +168,14 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         searchCompleter.queryFragment = searchText
+        SVProgressHUD.show()
     }
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
         self.tableView.reloadData()
+        SVProgressHUD.dismiss()
+        isAutoSuggest = true
     }
     
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
@@ -182,7 +196,7 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        
+        isAutoSuggest = false
         let completion = {
             
             // Check if location services are available
@@ -254,6 +268,7 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     }
     
     private func startSearch(_ searchString: String?) {
+        isAutoSuggest = false
         if self.localSearch?.isSearching ?? false {
             self.localSearch!.cancel()
         }
@@ -268,7 +283,7 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = searchString
         request.region = newRegion
-        
+        SVProgressHUD.show()
         let completionHandler: MKLocalSearchCompletionHandler = {[weak self] response, error in
             guard let this = self else {return}
             if let actualError = error as NSError? {
@@ -288,6 +303,7 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
                 this.viewAllButton.isEnabled = !this.places.isEmpty
                 self?.searchResults = [MKLocalSearchCompletion]()
                 this.tableView.reloadData()
+                SVProgressHUD.dismiss()
             }
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }

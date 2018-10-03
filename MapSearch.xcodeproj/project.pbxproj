@@ -336,7 +336,7 @@
 				INFOPLIST_FILE = MapSearch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ranking.testFB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ranking.testAppleFB;
 				PRODUCT_NAME = MapSearch;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -359,7 +359,7 @@
 				INFOPLIST_FILE = MapSearch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ranking.testFB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ranking.testAppleFB;
 				PRODUCT_NAME = MapSearch;
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

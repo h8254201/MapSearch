@@ -25,9 +25,55 @@ class FBTestViewController: UIViewController,UITableViewDelegate, UITableViewDat
         dataTableView.estimatedRowHeight = 50
         dataTableView.delegate = self
         dataTableView.dataSource = self
+        
+        SVProgressHUD.show()
+//
+//        var categories = [String]()
+//        if categorySwitch.isOn {
+//            categories = ["FOOD_BEVERAGE"]
+//        }
+        let lati = self.mapItem?.placemark.coordinate.latitude
+        let longi = self.mapItem?.placemark.coordinate.longitude
+        let appleLocation = CLLocation(latitude: lati!, longitude: longi!)
+        let graphRequest = placesManager.placeSearchRequest(for: appleLocation,
+                                                            searchTerm: mapItem?.name,
+                                                            categories: nil,
+                                                            fields: [FBSDKPlacesFieldKeyPhone,
+                                                                     FBSDKPlacesFieldKeyAbout,
+                                                                     FBSDKPlacesFieldKeyName,
+                                                                     FBSDKPlacesFieldKeyCoverPhoto,
+                                                                     FBSDKPlacesFieldKeyLocation,
+                                                                     FBSDKPlacesFieldKeyCategories],
+                                                            distance: 5000,
+                                                            cursor: nil)
+        
+        _ = graphRequest?.start(completionHandler: { (connection, result, error) in
+            if let resultDic = result as? Dictionary<String,Any> {
+                if let dataArray = resultDic["data"] as? Array<Dictionary<String,Any>> {
+                    self.dataArray = dataArray
+                    DispatchQueue.main.async {
+                        self.dataTableView.reloadData()
+                        SVProgressHUD.dismiss()
+                    }
+                    for data in dataArray {
+                        let name = data["name"] as! String
+                        print(name)
+                    }
+                }
+                if let paging = resultDic["paging"] as? Dictionary<String,Any>,
+                    let cursors = paging["cursors"] as? Dictionary<String,Any>,
+                    let cursorString = cursors["after"] as? String {
+                    self.cursorString = cursorString
+                } else {
+                    self.cursorString = ""
+                }
+            }
+        })
+        
     }
     
     @IBAction func search(_ sender: UIButton) {
+        /*
         SVProgressHUD.show()
         
         var categories = [String]()
@@ -77,6 +123,7 @@ class FBTestViewController: UIViewController,UITableViewDelegate, UITableViewDat
             
             
         })
+        */
     }
     
     
@@ -89,6 +136,10 @@ class FBTestViewController: UIViewController,UITableViewDelegate, UITableViewDat
         let dataDic = dataArray[indexPath.row]
         cell.categoriesText.text = ""
         cell.restNameLabel.text = dataDic["name"] as? String
+        let address = (dataDic["location"]! as! Dictionary<String,Any>)
+        cell.addressLabel.text = "\(address["city"] ?? "no city")\(address["street"] ?? "no street")"
+        cell.coordinateLabel.text = "\(address["latitude"] ?? "no info"):\(address["longitude"] ?? "no info")"
+        cell.phoneLabel.text = dataDic["phone"] as? String
         let categories = dataDic["category_list"] as? Array<Dictionary<String,Any>> ?? []
         for category in categories {
             cell.categoriesText.text = cell.categoriesText.text + "\n" + (category["name"] as! String)
@@ -103,4 +154,9 @@ class FBTestViewController: UIViewController,UITableViewDelegate, UITableViewDat
 class FBTableviewCell: UITableViewCell {
     @IBOutlet weak var restNameLabel: UILabel!
     @IBOutlet weak var categoriesText: UITextView!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var phoneLabel: UILabel!
+    @IBOutlet weak var coordinateLabel: UILabel!
+    
+    
 }

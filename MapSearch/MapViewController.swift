@@ -124,13 +124,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
             // If the annotation has a URL, add an extra Info button to the annotation view so users open that URL.
             let annotation = annotationView!.annotation as! PlaceAnnotation //### Is this line needed?
-            if annotation.url != nil {
-                let rightButton = UIButton(type: .detailDisclosure)
-                annotationView!.rightCalloutAccessoryView = rightButton
-                let leftButton = UIButton(type: .detailDisclosure)
-                leftButton.addTarget(self, action: #selector(toFBResult), for: .touchUpInside)
-                annotationView!.leftCalloutAccessoryView = leftButton
-            }
+            let leftButton = UIButton(type: .detailDisclosure)
+            leftButton.addTarget(self, action: #selector(toFBResult), for: .touchUpInside)
+            annotationView!.leftCalloutAccessoryView = leftButton
+//            if annotation.url != nil {
+//                let rightButton = UIButton(type: .detailDisclosure)
+//                annotationView!.rightCalloutAccessoryView = rightButton
+//            }
         }
         return annotationView
     }
@@ -138,7 +138,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @objc func toFBResult() {
         let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FBTestVC") as! FBTestViewController
         vc.mapItem = self.mapItemList[0]
-        self.present(vc, animated: true, completion: nil)
+
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     /*
@@ -158,4 +159,5 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     */
+    
 }
