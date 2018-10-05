@@ -5,4 +5,6 @@ target 'MapSearch' do
   # Pods for testFB
   pod 'FBSDKPlacesKit'
   pod 'SVProgressHUD'
+  pod 'Moya'
+
 end

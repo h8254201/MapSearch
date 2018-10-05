@@ -11,6 +11,8 @@
 		53B194201F719C8C00B49A5B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53B1941E1F719C8C00B49A5B /* Images.xcassets */; };
 		53B194261F719C9F00B49A5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53B194221F719C9F00B49A5B /* LaunchScreen.storyboard */; };
 		53B194271F719C9F00B49A5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53B194241F719C9F00B49A5B /* Main.storyboard */; };
+		5D3205FF2167486B002EAFFB /* DRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3205FE2167486B002EAFFB /* DRService.swift */; };
+		5D320601216748BE002EAFFB /* DRModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D320600216748BE002EAFFB /* DRModel.swift */; };
 		5D7C8BB0215B9313009DAD8E /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7C8BAF215B9313009DAD8E /* Place.swift */; };
 		5D81EFC3216218B30054A2B8 /* FBTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D81EFC2216218B30054A2B8 /* FBTestViewController.swift */; };
 		D782D3D81FDCFD15003387E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D782D3D41FDCFD14003387E3 /* AppDelegate.swift */; };
@@ -28,6 +30,8 @@
 		53B194231F719C9F00B49A5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MapSearch/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		53B194251F719C9F00B49A5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MapSearch/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		53B194281F719CDA00B49A5B /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
+		5D3205FE2167486B002EAFFB /* DRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRService.swift; sourceTree = "<group>"; };
+		5D320600216748BE002EAFFB /* DRModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRModel.swift; sourceTree = "<group>"; };
 		5D7C8BAF215B9313009DAD8E /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		5D81EFC2216218B30054A2B8 /* FBTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBTestViewController.swift; sourceTree = "<group>"; };
 		79EA3172B5311430674D20FF /* Pods-MapSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapSearch/Pods-MapSearch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -102,6 +106,7 @@
 		53AF8AEC0D9C50B700726DBA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				5D3205FD21674822002EAFFB /* WebService */,
 				D782D3D41FDCFD14003387E3 /* AppDelegate.swift */,
 				D782D3D61FDCFD15003387E3 /* MyTableViewController.swift */,
 				D782D3D51FDCFD14003387E3 /* MapViewController.swift */,
@@ -109,6 +114,15 @@
 				D782D3D71FDCFD15003387E3 /* PlaceAnnotation.swift */,
 			);
 			name = Sources;
+			sourceTree = "<group>";
+		};
+		5D3205FD21674822002EAFFB /* WebService */ = {
+			isa = PBXGroup;
+			children = (
+				5D3205FE2167486B002EAFFB /* DRService.swift */,
+				5D320600216748BE002EAFFB /* DRModel.swift */,
+			);
+			name = WebService;
 			sourceTree = "<group>";
 		};
 		5D7C8BAA215B91AE009DAD8E /* Model */ = {
@@ -223,16 +237,22 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MapSearch/Pods-MapSearch-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKPlacesKit/FBSDKPlacesKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKPlacesKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,12 +300,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D3205FF2167486B002EAFFB /* DRService.swift in Sources */,
 				5D81EFC3216218B30054A2B8 /* FBTestViewController.swift in Sources */,
 				D782D3DB1FDCFD15003387E3 /* PlaceAnnotation.swift in Sources */,
 				D782D3DA1FDCFD15003387E3 /* MyTableViewController.swift in Sources */,
 				D782D3D91FDCFD15003387E3 /* MapViewController.swift in Sources */,
 				D782D3D81FDCFD15003387E3 /* AppDelegate.swift in Sources */,
 				5D7C8BB0215B9313009DAD8E /* Place.swift in Sources */,
+				5D320601216748BE002EAFFB /* DRModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

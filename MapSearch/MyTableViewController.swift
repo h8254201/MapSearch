@@ -17,6 +17,7 @@ import UIKit
 import CoreLocation
 import SVProgressHUD
 import MapKit
+import Moya
 
 //mark: -
 
@@ -39,6 +40,7 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]()
     var isAutoSuggest: Bool?
+    var searchText: String? = ""
     //MARK: -
     
     override func viewDidLoad() {
@@ -168,11 +170,22 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         searchCompleter.queryFragment = searchText
-        
+        self.searchText = searchText
     }
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
+        let myRestaurant = Restaurant.init(name: self.searchText ?? "")
+        
+        MoyaProvider<DRApi>().request(.postRestaurant(restaurant: myRestaurant)) { (result) in
+            switch result {
+            case .success(let data):
+                print(data)
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
         self.tableView.reloadData()
         SVProgressHUD.dismiss()
         isAutoSuggest = true
