@@ -57,6 +57,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="viewAllButton" destination="vYj-eD-j4s" id="TIw-eb-GE6"/>
+                        <segue destination="bat-WV-nkX" kind="show" identifier="toShowPostData" id="IzX-N4-GCp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2im-l3-9oE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -243,6 +244,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HVr-EH-XTA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2022" y="29"/>
+        </scene>
+        <!--Post Info View Controller-->
+        <scene sceneID="Pkw-ck-OYl">
+            <objects>
+                <viewController id="bat-WV-nkX" customClass="PostInfoViewController" customModule="MapSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1GH-EH-bRn"/>
+                        <viewControllerLayoutGuide type="bottom" id="lcU-Ik-Mv8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PVQ-3i-ld2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4T-H0-wPu">
+                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="v4T-H0-wPu" firstAttribute="top" secondItem="1GH-EH-bRn" secondAttribute="bottom" id="2xO-dk-Qdd"/>
+                            <constraint firstAttribute="trailing" secondItem="v4T-H0-wPu" secondAttribute="trailing" id="5kU-BT-PNC"/>
+                            <constraint firstItem="lcU-Ik-Mv8" firstAttribute="top" secondItem="v4T-H0-wPu" secondAttribute="bottom" id="XFU-PR-26X"/>
+                            <constraint firstItem="v4T-H0-wPu" firstAttribute="leading" secondItem="PVQ-3i-ld2" secondAttribute="leading" id="Y0U-i6-CSm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="HPK-oy-ZSe"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="XhA-Hx-Pmg"/>
+                    <connections>
+                        <outlet property="showInfoText" destination="v4T-H0-wPu" id="M9x-kw-Wfm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="leh-XQ-QR4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1105" y="798"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

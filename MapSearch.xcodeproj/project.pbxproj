@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		334D1A73E395FCE836953198 /* Pods_MapSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D7960E15C88F35842644318 /* Pods_MapSearch.framework */; };
+		532BB336216D0546003C4A61 /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532BB335216D0546003C4A61 /* PostInfoViewController.swift */; };
 		53B194201F719C8C00B49A5B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53B1941E1F719C8C00B49A5B /* Images.xcassets */; };
 		53B194261F719C9F00B49A5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53B194221F719C9F00B49A5B /* LaunchScreen.storyboard */; };
 		53B194271F719C9F00B49A5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53B194241F719C9F00B49A5B /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		1D6058910D05DD3D006BFB54 /* MapSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D7960E15C88F35842644318 /* Pods_MapSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		532BB335216D0546003C4A61 /* PostInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInfoViewController.swift; sourceTree = "<group>"; };
 		53B1941E1F719C8C00B49A5B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MapSearch/Images.xcassets; sourceTree = "<group>"; };
 		53B1941F1F719C8C00B49A5B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MapSearch/Info.plist; sourceTree = "<group>"; };
 		53B194231F719C9F00B49A5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MapSearch/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -73,7 +75,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA = {
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
 				53B194281F719CDA00B49A5B /* ReadMe.md */,
@@ -112,6 +114,7 @@
 				D782D3D51FDCFD14003387E3 /* MapViewController.swift */,
 				5D81EFC2216218B30054A2B8 /* FBTestViewController.swift */,
 				D782D3D71FDCFD15003387E3 /* PlaceAnnotation.swift */,
+				532BB335216D0546003C4A61 /* PostInfoViewController.swift */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -205,7 +208,7 @@
 				en,
 				Base,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -308,6 +311,7 @@
 				D782D3DA1FDCFD15003387E3 /* MyTableViewController.swift in Sources */,
 				D782D3D91FDCFD15003387E3 /* MapViewController.swift in Sources */,
 				D782D3D81FDCFD15003387E3 /* AppDelegate.swift in Sources */,
+				532BB336216D0546003C4A61 /* PostInfoViewController.swift in Sources */,
 				5D7C8BB0215B9313009DAD8E /* Place.swift in Sources */,
 				5D320601216748BE002EAFFB /* DRModel.swift in Sources */,
 			);

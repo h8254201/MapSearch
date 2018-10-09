@@ -8,11 +8,11 @@
 import Foundation
 
 struct Restaurant: Codable {
-    let id: Int?
+    let shopID: Int?
     let shopName: String
     let address: String
-    init(id: Int?, shopName: String, address: String){
-        self.id = id
+    init(shopID: Int?, shopName: String, address: String){
+        self.shopID = shopID
         self.shopName = shopName
         self.address = address
     }

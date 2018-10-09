@@ -30,7 +30,7 @@ extension DRApi : TargetType {
         case .getAutoComplete:
             return "/app/restaurants"
         case .postRestaurant:
-            return "/app/discover/restaurant"
+            return "/app/v1/reviews/restaurant/review"
         case .login:
             return "/app/login"
         }
@@ -56,10 +56,20 @@ extension DRApi : TargetType {
                                           "filter" : filter,
                                           "accessToken": accessToken])
         case .postRestaurant(_, let restaurant):
-            return .requestParameters(parameters: ["latitude": "",
-                                                   "longitude" : "",
-                                                   "filter" : ""],
-                                      encoding: URLEncoding.default)
+            let rest = Rest(rest: restaurant)
+//            var parameters: [String: Any] = ["accessToken": ""]
+//            var rreview: [String: Any] = [:]
+//            rreview["restaurantID"] = restaurant.id
+//            rreview["shopName"] = restaurant.shopName
+//            rreview["address"] = restaurant.address
+//            parameters["restaurantReview"] = rreview
+//            parameters["dishReview"] = []
+//            parameters["otherReview"] = []
+//            parameters["shareType"] = 1
+            
+            return .requestJSONEncodable(rest)
+//            return .requestParameters(parameters: parameters,
+//                                      encoding: URLEncoding.default)
         case .login(let email, let password):
             return .requestParameters(parameters: ["email": email,
                                                    "password" : password],
@@ -84,4 +94,20 @@ extension DRApi : TargetType {
     }
     
     
+}
+
+class Rest: Encodable {
+    var restaurantReview: Restaurant
+    var dishReview: Array<Int>
+    var otherReview: Array<Int>
+    var shareType: Int
+    init(rest: Restaurant){
+        self.restaurantReview = Restaurant(shopID: rest.shopID,
+                                           shopName: rest.shopName,
+                                           address: rest.address)
+        self.dishReview = []
+        self.otherReview = []
+        shareType = 1
+    }
+
 }

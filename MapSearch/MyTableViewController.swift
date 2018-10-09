@@ -99,10 +99,11 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
 //    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let mapViewController = segue.destination as! MapViewController
+        
         
         if segue.identifier == "showDetail" {
             // Get the single item.
+            let mapViewController = segue.destination as! MapViewController
             let selectedItemPath = self.tableView.indexPathForSelectedRow!
             let mapItem = self.places[selectedItemPath.row]
             
@@ -116,12 +117,17 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
             mapViewController.mapItemList = [mapItem]
             
         } else if segue.identifier == "showAll" {
-            
+            let mapViewController = segue.destination as! MapViewController
             // Pass the new bounding region to the map destination view controller.
             mapViewController.boundingRegion = self.boundingRegion
             
             // Pass the list of places found to our map destination view controller.
             mapViewController.mapItemList = self.places
+        } else if segue.identifier == "toShowPostData" {
+            let restaurant = sender as! Restaurant
+            
+            let vc = segue.destination as! PostInfoViewController
+            vc.restaurant = restaurant
         }
     }
     
@@ -164,10 +170,30 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if isAutoSuggest == true {
-            let titleStr = searchResults[indexPath.row].shopName
-            self.searchController.searchBar.text = titleStr
+        let restaurant = searchResults[indexPath.row]
+//        self.performSegue(withIdentifier: "toShowPostData",
+//                          sender: restaurant)
+        MoyaProvider<DRApi>().request(.postRestaurant(accessToken: self.appDelegate.accessToken, restaurant: restaurant)) { (result) in
+            switch result {
+            case .success(let response):
+                do{
+                    let json = try JSON(data: response.data)
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "toShowPostData",
+                                          sender: restaurant)
+                    }
+                    print(json)
+                } catch let e {
+                    print(e)
+                }
+            case .failure(let error):
+                print(error)
+            }
         }
+//        if isAutoSuggest == true {
+//            let titleStr = searchResults[indexPath.row].shopName
+//            self.searchController.searchBar.text = titleStr
+//        }
     }
     
     //MARK: - UISearchBarDelegate
@@ -374,7 +400,7 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
         MoyaProvider<DRApi>().request(.getAutoComplete(accessToken: self.appDelegate.accessToken, latitude: "\(userCoordinate.latitude)", longitude: "\(userCoordinate.longitude)", filter: self.searchText ?? "")) { (result) in
             self.searchResults.removeAll()
             for result in completer.results {
-                let rest = Restaurant(id: nil, shopName: result.title, address: result.subtitle)
+                let rest = Restaurant(shopID: nil, shopName: result.title, address: result.subtitle)
                 self.searchResults.append(rest)
             }
             switch result {
