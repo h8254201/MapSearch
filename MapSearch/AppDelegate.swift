@@ -22,6 +22,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     // The app delegate must implement the window @property
     // from UIApplicationDelegate @protocol to use a main storyboard file.
     var window: UIWindow?
+    var accessToken = String()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
 

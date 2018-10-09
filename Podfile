@@ -6,5 +6,6 @@ target 'MapSearch' do
   pod 'FBSDKPlacesKit'
   pod 'SVProgressHUD'
   pod 'Moya'
+  pod 'SwiftyJSON', '~> 4.0'
 
 end
