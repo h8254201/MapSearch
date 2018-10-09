@@ -18,14 +18,25 @@ class PostInfoViewController: UIViewController {
         
         let restAddress = (restaurant?.address ?? "沒有地址") == "" ? "沒有地址" : restaurant?.address ?? "沒有地址"
         
+        var isDr = "是"
+        
+        if restID == "沒有ID" {
+            isDr = "否"
+        }
+        
         showInfoText.text = "restaurantID: \(restID)"
             + "\n\nrestaurantName: \(restName)"
             + "\n\nrestaurantAddress: \(restAddress)"
+            + "\n\n是否為DR餐廳: \(isDr)"
             + "\n\n是否找到餐廳要在後台log才能顯示"
         // Do any additional setup after loading the view.
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
     /*
     // MARK: - Navigation
 

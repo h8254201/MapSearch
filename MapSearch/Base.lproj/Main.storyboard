@@ -46,6 +46,53 @@
                                     <segue destination="gen-ib-Cgz" kind="show" identifier="showDetail" id="idd-Nu-YNL"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="59" id="hHV-iO-AjB" customClass="InfoCell" customModule="MapSearch" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="66" width="375" height="59"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hHV-iO-AjB" id="6HD-wf-zsx">
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="58.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="E1s-Pb-N8Z">
+                                            <rect key="frame" x="16" y="11" width="42" height="37"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gak-wn-A8A">
+                                                    <rect key="frame" x="0.0" y="0.0" width="42" height="18.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0u4-8R-aig">
+                                                    <rect key="frame" x="0.0" y="18.5" width="42" height="18.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uw8-Tg-5Ry">
+                                            <rect key="frame" x="291" y="11" width="42" height="37"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="uw8-Tg-5Ry" firstAttribute="top" secondItem="6HD-wf-zsx" secondAttribute="topMargin" id="1qv-3R-EYn"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="uw8-Tg-5Ry" secondAttribute="bottom" id="DIn-F4-PAM"/>
+                                        <constraint firstItem="E1s-Pb-N8Z" firstAttribute="leading" secondItem="6HD-wf-zsx" secondAttribute="leadingMargin" id="WZr-zE-rOS"/>
+                                        <constraint firstItem="uw8-Tg-5Ry" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="E1s-Pb-N8Z" secondAttribute="trailing" constant="8" symbolic="YES" id="b4w-2R-AS9"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="E1s-Pb-N8Z" secondAttribute="bottom" id="dSF-L8-FCu"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="uw8-Tg-5Ry" secondAttribute="trailing" id="fdh-nX-7r6"/>
+                                        <constraint firstItem="E1s-Pb-N8Z" firstAttribute="top" secondItem="6HD-wf-zsx" secondAttribute="topMargin" id="o50-Af-1Pe"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dr" destination="uw8-Tg-5Ry" id="v70-BG-3ra"/>
+                                    <outlet property="subtitle" destination="0u4-8R-aig" id="h23-tw-c1b"/>
+                                    <outlet property="title" destination="Gak-wn-A8A" id="sKb-sn-xbf"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Apple Map Search" id="lbr-sc-yth">
@@ -62,7 +109,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2im-l3-9oE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="316.875" y="30"/>
+            <point key="canvasLocation" x="316" y="29.23538230884558"/>
         </scene>
         <!--MapViewController-->
         <scene sceneID="tXH-gV-NTc">

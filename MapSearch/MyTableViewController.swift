@@ -150,9 +150,15 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
         
         if searchResults.count > 0 {
             let searchResult = searchResults[indexPath.row]
-            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-            cell.textLabel?.text = searchResult.shopName
-            cell.detailTextLabel?.text = searchResult.address
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! InfoCell
+//            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+            if let _ = searchResult.shopID {
+                cell.dr.text = "DR"
+            } else {
+                cell.dr.text = ""
+            }
+            cell.title.text = searchResult.shopName
+            cell.subtitle.text = searchResult.address
             return cell
         }
         
@@ -397,7 +403,10 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     
     
     func searchRest(_ completer: MKLocalSearchCompleter) {
-        MoyaProvider<DRApi>().request(.getAutoComplete(accessToken: self.appDelegate.accessToken, latitude: "\(userCoordinate.latitude)", longitude: "\(userCoordinate.longitude)", filter: self.searchText ?? "")) { (result) in
+        let latitude = "25.055949"
+        let longitude = "121.556581"
+        
+        MoyaProvider<DRApi>().request(.getAutoComplete(accessToken: self.appDelegate.accessToken, latitude: "\(latitude)", longitude: "\(longitude)", filter: self.searchText ?? "")) { (result) in
             self.searchResults.removeAll()
             for result in completer.results {
                 let rest = Restaurant(shopID: nil, shopName: result.title, address: result.subtitle)
@@ -430,4 +439,12 @@ class CommonResult<T: Codable>: Decodable {
     var statusCode: Int?
     var statusMsg: String?
     var restaurantData: T?
+}
+
+class InfoCell: UITableViewCell {
+    
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var subtitle: UILabel!
+    @IBOutlet weak var dr: UILabel!
+    
 }

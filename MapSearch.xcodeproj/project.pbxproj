@@ -191,7 +191,7 @@
 				LastUpgradeCheck = 0900;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = USS7ET87BM;
+						DevelopmentTeam = HS67XL9RJ4;
 						LastSwiftMigration = 0920;
 					};
 				};
@@ -357,7 +357,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = USS7ET87BM;
+				DEVELOPMENT_TEAM = HS67XL9RJ4;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -382,7 +382,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = USS7ET87BM;
+				DEVELOPMENT_TEAM = HS67XL9RJ4;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = MapSearch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
