@@ -83,8 +83,10 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        sleep(1)
-        self.searchCompleter.queryFragment = "附近的餐廳"
+        sleep(2)
+        if self.searchText == "" {
+            self.searchCompleter.queryFragment = "附近的餐廳"
+        }
     }
 //    override var shouldAutorotate : Bool {
 //        return true
