@@ -12,9 +12,7 @@ enum DRApi {
     case login(email:String, password: String)
     case postRestaurant(accessToken: String, restaurant: Restaurant)
     case getAutoComplete(accessToken: String,
-        latitude: String,
-        longitude: String,
-        filter: String)
+        parameter: [String:String])
 }
 
 extension DRApi : TargetType {
@@ -46,15 +44,9 @@ extension DRApi : TargetType {
     
     var task: Task {
         switch self {
-        case .getAutoComplete(let accessToken,
-                              let latitude,
-                              let longitude,
-                              let filter):
+        case .getAutoComplete(_, let parameter):
             
-            return .requestJSONEncodable(["latitude": latitude,
-                                          "longitude" : longitude,
-                                          "filter" : filter,
-                                          "accessToken": accessToken])
+            return .requestJSONEncodable(parameter)
         case .postRestaurant(_, let restaurant):
             let rest = Rest(rest: restaurant)
 //            var parameters: [String: Any] = ["accessToken": ""]
@@ -80,10 +72,10 @@ extension DRApi : TargetType {
     
     var headers: [String : String]? {
         switch self {
-        case .getAutoComplete(let accessToken, _, _, _):
+        case .getAutoComplete(let accessToken, _):
             return ["Content-Type": "application/json",
                     "Accept": "application/json",
-//                    "Authorization": "Bearer " + accessToken
+                    "Authorization": "Bearer " + accessToken
             ]
         case .postRestaurant(let accessToken, _):
             return ["Content-Type": "application/json",

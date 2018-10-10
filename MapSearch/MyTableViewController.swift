@@ -32,6 +32,7 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     private var boundingRegion: MKCoordinateRegion = MKCoordinateRegion()
     
     private var localSearch: MKLocalSearch?
+    @IBOutlet weak var localSwitch: UISwitch!
     @IBOutlet weak var viewAllButton: UIBarButtonItem!
     private var locationManager: CLLocationManager = CLLocationManager()
     private var userCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D()
@@ -44,6 +45,50 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     var searchText: String? = ""
     //MARK: -
     
+    @IBAction func switchValueChange(_ sender: Any) {
+        
+        let latitude = "25.033671"
+        let longitude = "121.564427"
+        var parameter = [String:String]()
+        
+        if localSwitch.isOn {
+            parameter["latitude"] = latitude
+            parameter["longitude"] = longitude
+            
+        }
+        
+        parameter["filter"] = self.searchText ?? ""
+        
+        MoyaProvider<DRApi>().request(.getAutoComplete(accessToken: self.appDelegate.accessToken, parameter: parameter)) { (result) in
+            let results = self.searchResults.filter{ $0.shopID == nil }
+            self.searchResults.removeAll()
+//            for result in results {
+//                let rest = Restaurant(shopID: nil, shopName: result.shopName, address: result.address)
+//                self.searchResults.append(rest)
+//            }
+            switch result {
+            case .success(let response):
+                do{
+                    let json = try JSON(data: response.data)
+                    let restaurantResult = try JSONDecoder.init().decode(CommonResult<[Restaurant]>.self, from: response.data)
+                    if let restaurants = restaurantResult.restaurantData {
+                        self.searchResults = results + restaurants
+                        //                        self.searchResults = restaurants + self.searchResults
+                    }
+                } catch let e {
+                    print(e)
+                }
+            case .failure(let error):
+                print(error)
+            }
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                SVProgressHUD.dismiss()
+            }
+        }
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         MoyaProvider<DRApi>().request(.login(email: "pei@qqq.com", password: "1234567890")) { (result) in
@@ -153,7 +198,6 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
         if searchResults.count > 0 {
             let searchResult = searchResults[indexPath.row]
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! InfoCell
-//            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
             if let _ = searchResult.shopID {
                 cell.dr.text = "DR"
             } else {
@@ -179,8 +223,6 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let restaurant = searchResults[indexPath.row]
-//        self.performSegue(withIdentifier: "toShowPostData",
-//                          sender: restaurant)
         MoyaProvider<DRApi>().request(.postRestaurant(accessToken: self.appDelegate.accessToken, restaurant: restaurant)) { (result) in
             switch result {
             case .success(let response):
@@ -243,6 +285,8 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchCompleter.queryFragment = "附近的餐廳"
+        self.searchText = ""
         searchBar.resignFirstResponder()
     }
     
@@ -405,12 +449,21 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
     
     
     func searchRest(_ completer: MKLocalSearchCompleter) {
-        let latitude = "25.055949"
-        let longitude = "121.556581"
+        let latitude = "25.033671"
+        let longitude = "121.564427"
+        var parameter = [String:String]()
+
+        if localSwitch.isOn {
+            parameter["latitude"] = latitude
+            parameter["longitude"] = longitude
+            
+        }
+        parameter["filter"] = self.searchText ?? ""
         
-        MoyaProvider<DRApi>().request(.getAutoComplete(accessToken: self.appDelegate.accessToken, latitude: "\(latitude)", longitude: "\(longitude)", filter: self.searchText ?? "")) { (result) in
+        MoyaProvider<DRApi>().request(.getAutoComplete(accessToken: self.appDelegate.accessToken, parameter: parameter)) { (result) in
             self.searchResults.removeAll()
             for result in completer.results {
+                
                 let rest = Restaurant(shopID: nil, shopName: result.title, address: result.subtitle)
                 self.searchResults.append(rest)
             }
@@ -420,7 +473,8 @@ class MyTableViewController: UITableViewController, CLLocationManagerDelegate, U
                     let json = try JSON(data: response.data)
                     let restaurantResult = try JSONDecoder.init().decode(CommonResult<[Restaurant]>.self, from: response.data)
                     if let restaurants = restaurantResult.restaurantData {
-                        self.searchResults = restaurants + self.searchResults
+                        self.searchResults = self.searchResults + restaurants
+//                        self.searchResults = restaurants + self.searchResults
                     }
                 } catch let e {
                     print(e)

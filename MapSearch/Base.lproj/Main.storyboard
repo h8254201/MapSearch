@@ -96,13 +96,25 @@
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Apple Map Search" id="lbr-sc-yth">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="View All" id="vYj-eD-j4s">
-                            <connections>
-                                <segue destination="gen-ib-Cgz" kind="show" identifier="showAll" id="iYs-iM-Ja7"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem enabled="NO" title="View All" id="vYj-eD-j4s">
+                                <connections>
+                                    <segue destination="gen-ib-Cgz" kind="show" identifier="showAll" id="iYs-iM-Ja7"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="cuu-Hh-djx">
+                                <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="D1v-Tn-n1h">
+                                    <rect key="frame" x="239.5" y="6.5" width="51" height="31"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <connections>
+                                        <action selector="switchValueChange:" destination="TpQ-J8-wXr" eventType="valueChanged" id="B0T-Eb-w55"/>
+                                    </connections>
+                                </switch>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="localSwitch" destination="D1v-Tn-n1h" id="Wcn-hh-95G"/>
                         <outlet property="viewAllButton" destination="vYj-eD-j4s" id="TIw-eb-GE6"/>
                         <segue destination="bat-WV-nkX" kind="show" identifier="toShowPostData" id="IzX-N4-GCp"/>
                     </connections>
